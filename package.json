@@ -3,6 +3,7 @@
   "displayName": "DLiteScript",
   "description": "A delightfully simple scripting language",
   "repository": "https://github.com/Dobefu/vscode-dlitescript",
+  "publisher": "Dobefu",
   "version": "0.1.0",
   "engines": {
     "vscode": "^1.103.0"
