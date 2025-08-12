@@ -1,0 +1,25 @@
+{
+  "name": "dlitescript",
+  "displayName": "DLiteScript",
+  "description": "A delightfully simple scripting language",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.103.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "dlitescript",
+      "aliases": ["DLiteScript", "dlitescript"],
+      "extensions": ["dl"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "dlitescript",
+      "scopeName": "source.dlitescript",
+      "path": "./syntaxes/dlitescript.tmLanguage.json"
+    }]
+  }
+}
