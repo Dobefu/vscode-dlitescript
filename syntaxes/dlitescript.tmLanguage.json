@@ -5,6 +5,7 @@
 		{"include": "#comments"},
 		{"include": "#keywords"},
 		{"include": "#types"},
+		{"include": "#booleans"},
 		{"include": "#operators"},
 		{"include": "#numbers"},
 		{"include": "#strings"},
@@ -18,12 +19,16 @@
 		"keywords": {
 			"patterns": [{
 				"name": "keyword.control.dlitescript",
-				"match": "\\b(var|const)\\b"
+				"match": "\\b(var|const|if|else)\\b"
 			}]
 		},
 		"types": {
 			"name": "support.type.builtin.dlitescript",
 			"match": "\\b(string|number|bool)\\b"
+		},
+		"booleans": {
+			"name": "constant.language.boolean.dlitescript",
+			"match": "\\b(true|false)\\b"
 		},
 		"operators": {
 			"name": "keyword.operator.dlitescript",
