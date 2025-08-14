@@ -1,5 +1,9 @@
 # Change Log
 
+### 0.2.1
+
+- Add highlighting for operators
+
 ### 0.2.0
 
 - Add highlighting for booleans

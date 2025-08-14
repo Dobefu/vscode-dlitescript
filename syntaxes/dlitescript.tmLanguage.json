@@ -32,7 +32,7 @@
 		},
 		"operators": {
 			"name": "keyword.operator.dlitescript",
-			"match": "(\\*\\*|[+\\-*/%=])"
+			"match": "(\\*\\*|==|!=|>=|<=|&&|\\|\\||[+\\-*/%=<>!])"
 		},
 		"numbers": {
 			"name": "constant.numeric.dlitescript",
