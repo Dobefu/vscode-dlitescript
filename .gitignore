@@ -1,1 +1,3 @@
 dlitescript-*.vsix
+node_modules/
+out/

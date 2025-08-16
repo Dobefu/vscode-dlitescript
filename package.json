@@ -5,12 +5,26 @@
   "repository": "https://github.com/Dobefu/vscode-dlitescript",
   "publisher": "Dobefu",
   "version": "0.2.2",
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^22.17.2",
+    "@types/vscode": "^1.75.0",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^9.0.1"
+  },
   "engines": {
-    "vscode": "^1.103.0"
+    "vscode": "^1.75.0"
   },
   "categories": [
     "Programming Languages"
   ],
+  "main": "./out/extension.js",
   "contributes": {
     "languages": [
       {
@@ -30,6 +44,35 @@
         "language": "dlitescript",
         "scopeName": "source.dlitescript",
         "path": "./syntaxes/dlitescript.tmLanguage.json"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "DLiteScript",
+      "properties": {
+        "dlitescript.lsp.enable": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable the DLiteScript Language Server Protocol"
+        },
+        "dlitescript.lsp.serverPath": {
+          "type": "string",
+          "default": "DLiteScript",
+          "description": "The path to the DLiteScript Language Server executable"
+        },
+        "dlitescript.lsp.serverArgs": {
+          "type": "array",
+          "default": [
+            "lsp"
+          ],
+          "description": "The arguments to pass to the DLiteScript Language Server executable"
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "dlitescript.restartServer",
+        "title": "Restart the DLiteScript Language Server"
       }
     ]
   }
