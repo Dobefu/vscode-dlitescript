@@ -1,5 +1,9 @@
 # Change Log
 
+### 0.2.2
+
+- Add highlighting for for-loops
+
 ### 0.2.1
 
 - Add highlighting for operators
