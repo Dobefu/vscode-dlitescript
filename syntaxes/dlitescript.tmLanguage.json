@@ -17,10 +17,20 @@
 			"match": "//.*$"
 		},
 		"keywords": {
-			"patterns": [{
-				"name": "keyword.control.dlitescript",
-				"match": "\\b(var|const|if|else)\\b"
-			}]
+			"patterns": [
+				{
+					"name": "keyword.control.dlitescript",
+					"match": "\\b(var|const|if|else)\\b"
+				},
+				{
+					"name": "keyword.control.loop.dlitescript",
+					"match": "\\b(for|from|to)\\b"
+				},
+				{
+					"name": "keyword.control.flow.dlitescript",
+					"match": "\\b(break|continue)\\b"
+				}
+			]
 		},
 		"types": {
 			"name": "support.type.builtin.dlitescript",
