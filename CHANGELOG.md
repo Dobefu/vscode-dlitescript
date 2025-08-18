@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.3.1
+
+- Greatly reduce the number of packaged files in the extension
+
 ## 0.3.0
 
 - Add an LSP server with hover information

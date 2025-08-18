@@ -1,3 +1,13 @@
 .vscode/**
 .vscode-test/**
 .gitignore
+.gitmodules
+.nvmrc
+node_modules/**
+src/**
+scripts/**
+dlitescript/**
+*.ts
+*.d.ts
+tsconfig.json
+package-lock.json
