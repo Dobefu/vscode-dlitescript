@@ -17,7 +17,16 @@ None. This extension works out of the box with VS Code.
 
 ## Extension Settings
 
-This extension adds no additional settings.
+This extension contributes the following settings:
+
+- `dlitescript.lsp.enable`: Enable/disable the DLiteScript Language Server Protocol (default: true)
+- `dlitescript.lsp.serverPath`: Path to the DLiteScript Language Server executable (default: "dlitescript")
+- `dlitescript.lsp.serverArgs`: Arguments to pass to the Language Server (default: ["lsp"])
+
+## Commands
+
+- `dlitescript.restartServer`: Restart the DLiteScript Language Server
+- `dlitescript.toggleServer`: Toggle the DLiteScript LSP server
 
 ## Example
 
