@@ -5,7 +5,6 @@
   "repository": "https://github.com/Dobefu/vscode-dlitescript",
   "publisher": "Dobefu",
   "version": "0.2.2",
-  "type": "module",
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "npm run compile-binaries && tsc -p ./",
@@ -78,6 +77,10 @@
       {
         "command": "dlitescript.restartServer",
         "title": "Restart the DLiteScript Language Server"
+      },
+      {
+        "command": "dlitescript.toggleServer",
+        "title": "Toggle the DLiteScript Language Server"
       }
     ]
   }

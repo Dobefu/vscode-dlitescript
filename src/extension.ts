@@ -1,4 +1,11 @@
-import { commands, ExtensionContext, window, workspace } from "vscode";
+import {
+  commands,
+  ExtensionContext,
+  StatusBarAlignment,
+  StatusBarItem,
+  window,
+  workspace,
+} from "vscode";
 import {
   LanguageClient,
   LanguageClientOptions,
@@ -6,14 +13,29 @@ import {
   ServerOptions,
   TransportKind,
 } from "vscode-languageclient/node";
-import * as path from "path";
-import * as fs from "fs";
+
+import path from "path";
+import fs from "fs";
 
 let client: LanguageClient | undefined;
+let statusBarItem: StatusBarItem | undefined;
 
 export async function activate(
   context: ExtensionContext,
 ): Promise<LanguageClient | undefined> {
+  context.subscriptions.push(
+    commands.registerCommand("dlitescript.restartServer", restartServer),
+  );
+
+  context.subscriptions.push(
+    commands.registerCommand("dlitescript.toggleServer", toggleServer),
+  );
+
+  statusBarItem = window.createStatusBarItem(StatusBarAlignment.Right, 100);
+  statusBarItem.name = "DLiteScript LSP Status";
+  statusBarItem.command = "dlitescript.toggleServer";
+  context.subscriptions.push(statusBarItem);
+
   try {
     const result = await startServer();
 
@@ -23,13 +45,6 @@ export async function activate(
 
     console.info("DLiteScript LSP server started");
     context.subscriptions.push(result);
-
-    const restartCommand = commands.registerCommand(
-      "dlitescript.restartServer",
-      restartServer,
-    );
-
-    context.subscriptions.push(restartCommand);
 
     return result;
   } catch (error) {
@@ -41,6 +56,10 @@ export async function activate(
 }
 
 export async function deactivate() {
+  if (statusBarItem) {
+    statusBarItem.hide();
+  }
+
   return await stopServer();
 }
 
@@ -49,6 +68,12 @@ async function startServer(): Promise<LanguageClient | undefined> {
 
   if (!config.get<boolean>("lsp.enable")) {
     console.info("DLiteScript LSP is disabled");
+
+    if (statusBarItem) {
+      statusBarItem.text = "$(circle-slash) DLiteScript LSP Disabled";
+      statusBarItem.tooltip = "DLiteScript LSP is disabled in configuration";
+      statusBarItem.show();
+    }
 
     return;
   }
@@ -79,8 +104,8 @@ async function startServer(): Promise<LanguageClient | undefined> {
   const serverArgs = config.get<string[]>("lsp.serverArgs") ?? ["lsp"];
 
   const serverOptions: ServerOptions = {
-    command: serverPath,
-    args: serverArgs,
+    command: serverPath ?? "dlitescript",
+    args: serverArgs ?? ["lsp"],
     transport: TransportKind.stdio,
   };
 
@@ -102,7 +127,19 @@ async function startServer(): Promise<LanguageClient | undefined> {
 
   try {
     await client.start();
+
+    if (statusBarItem) {
+      statusBarItem.text = "$(check) DLiteScript LSP Running";
+      statusBarItem.tooltip = "DLiteScript Language Server is active";
+      statusBarItem.show();
+    }
   } catch (error) {
+    if (statusBarItem) {
+      statusBarItem.text = "$(error) DLiteScript LSP Failed to Start";
+      statusBarItem.tooltip = `DLiteScript LSP has failed to start: ${error}`;
+      statusBarItem.show();
+    }
+
     if (client) {
       client.dispose();
       client = undefined;
@@ -119,25 +156,71 @@ async function stopServer() {
     return;
   }
 
+  if (statusBarItem) {
+    statusBarItem.text = "$(error) DLiteScript LSP Stopped";
+    statusBarItem.tooltip = "DLiteScript Language Server has been stopped";
+  }
+
   await client.stop();
   client = undefined;
+
+  if (statusBarItem) {
+    statusBarItem.text = "$(circle-slash) DLiteScript LSP Stopped";
+    statusBarItem.tooltip = "DLiteScript Language Server is inactive";
+  }
 }
 
 async function restartServer() {
   try {
+    if (statusBarItem) {
+      statusBarItem.text = "$(sync~spin) DLiteScript LSP Restarting...";
+      statusBarItem.tooltip = "DLiteScript LSP is restarting...";
+    }
+
     window.showInformationMessage("Restarting DLiteScript LSP server...");
 
     await stopServer();
 
-    // Wait a bit, to ensure that the status messages are shown in order.
+    // Wait a bit, just in case.
     await new Promise((resolve) => setTimeout(resolve, 100));
 
     await startServer();
 
     window.showInformationMessage("DLiteScript LSP server has been restarted");
   } catch (error) {
+    if (statusBarItem) {
+      statusBarItem.text = "$(error) DLiteScript LSP Restart Failed";
+      statusBarItem.tooltip = `Failed to restart: ${error}`;
+    }
+
     window.showErrorMessage(
       `Failed to restart DLiteScript LSP server: ${error}`,
     );
+  }
+}
+
+async function toggleServer() {
+  const config = workspace.getConfiguration("dlitescript");
+
+  if (!config.get<boolean>("lsp.enable")) {
+    return;
+  }
+
+  if (client && client.isRunning()) {
+    try {
+      await stopServer();
+    } catch (error) {
+      window.showErrorMessage(
+        `Failed to stop DLiteScript LSP server: ${error}`,
+      );
+    }
+  } else {
+    try {
+      await startServer();
+    } catch (error) {
+      window.showErrorMessage(
+        `Failed to start DLiteScript LSP server: ${error}`,
+      );
+    }
   }
 }
