@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.3.0
+
+- Add an LSP server with hover information
+
 ## 0.2.2
 
 - Add highlighting for for-loops
