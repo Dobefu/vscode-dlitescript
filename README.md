@@ -57,3 +57,4 @@ Initial release with syntax highlighting and basic language support.
 - [DLiteScript](https://github.com/Dobefu/DLiteScript) - Main language implementation
 - [tree-sitter-dlitescript](https://github.com/Dobefu/tree-sitter-dlitescript) - Grammar definition
 - [vscode-dlitescript](https://github.com/Dobefu/vscode-dlitescript) - Source code
+- [nvim-dlitescript](https://github.com/Dobefu/nvim-dlitescript) - NeoVim plugin
