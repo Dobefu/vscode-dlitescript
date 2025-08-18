@@ -93,8 +93,8 @@ async function restartServer() {
 
     await stopServer();
 
-    // Wait a second to ensure the server is stopped.
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    // Wait a bit, to ensure that the status messages are shown in order.
+    await new Promise((resolve) => setTimeout(resolve, 100));
 
     await startServer();
 
