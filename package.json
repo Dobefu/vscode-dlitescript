@@ -5,15 +5,20 @@
   "repository": "https://github.com/Dobefu/vscode-dlitescript",
   "publisher": "Dobefu",
   "version": "0.2.2",
+  "type": "module",
   "scripts": {
     "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./"
+    "compile": "npm run compile-binaries && tsc -p ./",
+    "watch": "npm run compile-binaries && tsc -watch -p ./",
+    "compile-binaries": "node scripts/compile-binaries.js",
+    "prepackage": "npm run compile",
+    "package": "vsce package"
   },
   "devDependencies": {
     "@types/node": "^22.17.2",
     "@types/vscode": "^1.75.0",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "vsce": "^3.0.0"
   },
   "dependencies": {
     "vscode-languageclient": "^9.0.1"
@@ -57,7 +62,7 @@
         },
         "dlitescript.lsp.serverPath": {
           "type": "string",
-          "default": "DLiteScript",
+          "default": "dlitescript",
           "description": "The path to the DLiteScript Language Server executable"
         },
         "dlitescript.lsp.serverArgs": {

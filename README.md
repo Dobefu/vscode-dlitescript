@@ -9,6 +9,7 @@ Language support for DLiteScript.
 - **Comment Support**
 - **String Features**
 - **Language Configuration**
+- **LSP Server**
 
 ## Requirements
 

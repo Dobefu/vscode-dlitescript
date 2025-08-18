@@ -1,43 +1,81 @@
 import { commands, ExtensionContext, window, workspace } from "vscode";
-import { LanguageClient, LanguageClientOptions, RevealOutputChannelOn, ServerOptions, TransportKind } from "vscode-languageclient/node";
+import {
+  LanguageClient,
+  LanguageClientOptions,
+  RevealOutputChannelOn,
+  ServerOptions,
+  TransportKind,
+} from "vscode-languageclient/node";
+import * as path from "path";
+import * as fs from "fs";
 
 let client: LanguageClient | undefined;
 
-export async function activate(context: ExtensionContext) {
+export async function activate(
+  context: ExtensionContext,
+): Promise<LanguageClient | undefined> {
   try {
-    await startServer();
-    console.log("DLiteScript LSP server started");
-  }
-  catch (error) {
+    const result = await startServer();
+
+    if (!result) {
+      return;
+    }
+
+    console.info("DLiteScript LSP server started");
+    context.subscriptions.push(result);
+
+    const restartCommand = commands.registerCommand(
+      "dlitescript.restartServer",
+      restartServer,
+    );
+
+    context.subscriptions.push(restartCommand);
+
+    return result;
+  } catch (error) {
     console.error(`Failed to start DLiteScript LSP server: ${error}`);
     window.showErrorMessage(`Failed to start DLiteScript LSP server: ${error}`);
+
+    return;
   }
-
-  const restartCommand = commands.registerCommand(
-    "dlitescript.restartServer",
-    restartServer,
-  );
-
-  context.subscriptions.push(restartCommand);
-
-  if (client) {
-    context.subscriptions.push(client);
-  }
-
-  return client
 }
 
 export async function deactivate() {
   return await stopServer();
 }
 
-async function startServer() {
+async function startServer(): Promise<LanguageClient | undefined> {
+  const config = workspace.getConfiguration("dlitescript");
+
+  if (!config.get<boolean>("lsp.enable")) {
+    console.info("DLiteScript LSP is disabled");
+
+    return;
+  }
+
   if (client && client.isRunning()) {
     return client;
   }
 
-  const config = workspace.getConfiguration("dlitescript");
-  const serverPath = config.get<string>("lsp.serverPath") ?? "DLiteScript";
+  let serverPath = config.get<string>("lsp.serverPath");
+
+  if (!serverPath || serverPath === "dlitescript") {
+    const platform = process.platform;
+    const arch = process.arch;
+    const bundledPath = path.join(
+      __dirname,
+      "..",
+      "resources",
+      `dlitescript-${platform}-${arch}`,
+    );
+
+    if (fs.existsSync(bundledPath)) {
+      serverPath = bundledPath;
+    } else {
+      serverPath = "dlitescript";
+    }
+  }
+
   const serverArgs = config.get<string[]>("lsp.serverArgs") ?? ["lsp"];
 
   const serverOptions: ServerOptions = {
@@ -51,9 +89,6 @@ async function startServer() {
       { scheme: "file", language: "dlitescript" },
       { scheme: "untitled", language: "dlitescript" },
     ],
-    synchronize: {
-      fileEvents: workspace.createFileSystemWatcher("**/*.dl"),
-    },
     outputChannelName: "DLiteScript LSP",
     revealOutputChannelOn: RevealOutputChannelOn.Error,
   };
@@ -68,6 +103,11 @@ async function startServer() {
   try {
     await client.start();
   } catch (error) {
+    if (client) {
+      client.dispose();
+      client = undefined;
+    }
+
     throw error;
   }
 
@@ -75,11 +115,7 @@ async function startServer() {
 }
 
 async function stopServer() {
-  if (!client) {
-    return;
-  }
-
-  if (!client.isRunning()) {
+  if (!client || !client.isRunning()) {
     return;
   }
 
@@ -99,8 +135,9 @@ async function restartServer() {
     await startServer();
 
     window.showInformationMessage("DLiteScript LSP server has been restarted");
-  }
-  catch (error) {
-    window.showErrorMessage(`Failed to restart DLiteScript LSP server: ${error}`);
+  } catch (error) {
+    window.showErrorMessage(
+      `Failed to restart DLiteScript LSP server: ${error}`,
+    );
   }
 }

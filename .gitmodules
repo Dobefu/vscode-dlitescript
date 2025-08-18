@@ -1,0 +1,3 @@
+[submodule "dlitescript"]
+	path = dlitescript
+	url = git@github.com:Dobefu/DLiteScript.git

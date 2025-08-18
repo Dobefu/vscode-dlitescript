@@ -1,3 +1,13 @@
+# Build artifacts.
 dlitescript-*.vsix
-node_modules/
 out/
+resources/
+
+# NPM packages.
+node_modules/
+
+# MacOS files.
+.DS_Store
+
+# Log files.
+*.log
