@@ -46,12 +46,6 @@ var result number = 2 ** 3 + 4 * 5
 var calculation number = (result - 10) / 2
 ```
 
-## Release Notes
-
-### 0.1.0
-
-Initial release with syntax highlighting and basic language support.
-
 ## Related
 
 - [DLiteScript](https://github.com/Dobefu/DLiteScript) - Main language implementation
