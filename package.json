@@ -25,6 +25,11 @@
   "engines": {
     "vscode": "^1.75.0"
   },
+  "activationEvents": [
+    "onLanguage:dlitescript",
+    "onCommand:dlitescript.restartServer",
+    "onCommand:dlitescript.toggleServer"
+  ],
   "categories": [
     "Programming Languages"
   ],

@@ -1,12 +1,10 @@
 // @ts-check
 
-import fs from "fs";
-import path from "path";
-import { execSync } from "child_process";
-import { fileURLToPath } from "url";
+const fs = require("fs");
+const path = require("path");
+const { execSync } = require("child_process");
 
-const filename = fileURLToPath(import.meta.url);
-const dirname = path.dirname(filename);
+const dirname = __dirname;
 
 const DLITESCRIPT_REPO = path.join(dirname, "..", "dlitescript");
 const PLATFORMS = {

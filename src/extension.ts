@@ -51,6 +51,12 @@ export async function activate(
     console.error(`Failed to start DLiteScript LSP server: ${error}`);
     window.showErrorMessage(`Failed to start DLiteScript LSP server: ${error}`);
 
+    if (statusBarItem) {
+      statusBarItem.text = "$(error) DLiteScript LSP Failed";
+      statusBarItem.tooltip = `DLiteScript LSP failed to start: ${error}`;
+      statusBarItem.show();
+    }
+
     return;
   }
 }
