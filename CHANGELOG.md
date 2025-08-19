@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.3.3
+
+- fix: Include `node_modules` in the packaged extension
+
 ## 0.3.2
 
 - fix: Make sure that events are getting registered correctly
