@@ -3,7 +3,6 @@
 .gitignore
 .gitmodules
 .nvmrc
-node_modules/**
 src/**
 scripts/**
 dlitescript/**
