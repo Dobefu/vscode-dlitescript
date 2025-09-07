@@ -43,7 +43,7 @@ function main() {
   try {
     execSync("go version");
   } catch (error) {
-    console.error("Go executable not found");
+    console.error("Go executable not found:", error.message);
     process.exit(1);
   }
 
