@@ -84,7 +84,7 @@ async function startServer(): Promise<LanguageClient | undefined> {
     return;
   }
 
-  if (client && client.isRunning()) {
+  if (client?.isRunning()) {
     return client;
   }
 
@@ -158,7 +158,7 @@ async function startServer(): Promise<LanguageClient | undefined> {
 }
 
 async function stopServer() {
-  if (!client || !client.isRunning()) {
+  if (!client?.isRunning()) {
     return;
   }
 
@@ -212,7 +212,7 @@ async function toggleServer() {
     return;
   }
 
-  if (client && client.isRunning()) {
+  if (client?.isRunning()) {
     try {
       await stopServer();
     } catch (error) {
