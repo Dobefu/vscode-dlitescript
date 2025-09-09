@@ -11,13 +11,13 @@
     "watch": "npm run compile-binaries && tsc -watch -p ./",
     "compile-binaries": "node scripts/compile-binaries.js",
     "prepackage": "npm run compile",
-    "package": "vsce package"
+    "package": "@vscode/vsce package"
   },
   "devDependencies": {
     "@types/node": "^22.17.2",
     "@types/vscode": "^1.75.0",
-    "typescript": "^5.9.2",
-    "vsce": "^3.0.0"
+    "@vscode/vsce": "^3.6.0",
+    "typescript": "^5.9.2"
   },
   "dependencies": {
     "vscode-languageclient": "^9.0.1"
