@@ -4,7 +4,7 @@
   "description": "A delightfully simple scripting language",
   "repository": "https://github.com/Dobefu/vscode-dlitescript",
   "publisher": "Dobefu",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "npm run compile-binaries && tsc -p ./",

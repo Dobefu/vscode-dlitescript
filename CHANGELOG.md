@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.3.4
+
+- feat: Add highlighting for function declarations
+- feat: Add highlighting for spread syntax
+- feat: Add highlighting for comparison operators
+
 ## 0.3.3
 
 - fix: Include `node_modules` in the packaged extension
