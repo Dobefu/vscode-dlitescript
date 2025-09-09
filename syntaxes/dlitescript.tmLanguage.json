@@ -9,7 +9,9 @@
 		{"include": "#operators"},
 		{"include": "#numbers"},
 		{"include": "#strings"},
-		{"include": "#function-calls"}
+		{"include": "#function-calls"},
+		{"include": "#namespaced-identifiers"},
+		{"include": "#import-statements"}
 	],
 	"repository": {
 		"comments": {
@@ -28,21 +30,45 @@
 				},
 				{
 					"name": "keyword.control.flow.dlitescript",
-					"match": "\\b(break|continue)\\b"
+					"match": "\\b(break|continue|return)\\b"
+				},
+				{
+					"name": "keyword.other.function.dlitescript",
+					"match": "\\b(func|import)\\b"
 				}
 			]
 		},
 		"types": {
 			"name": "support.type.builtin.dlitescript",
-			"match": "\\b(string|number|bool)\\b"
+			"match": "\\b(string|number|bool|null)\\b"
 		},
 		"booleans": {
 			"name": "constant.language.boolean.dlitescript",
 			"match": "\\b(true|false)\\b"
 		},
 		"operators": {
-			"name": "keyword.operator.dlitescript",
-			"match": "(\\*\\*|==|!=|>=|<=|&&|\\|\\||[+\\-*/%=<>!])"
+			"patterns": [
+				{
+					"name": "keyword.operator.arithmetic.dlitescript",
+					"match": "(\\*\\*|[+\\-*/%])"
+				},
+				{
+					"name": "keyword.operator.comparison.dlitescript",
+					"match": "(==|!=|>=|<=|[<>])"
+				},
+				{
+					"name": "keyword.operator.logical.dlitescript",
+					"match": "(&&|\\|\\||!)"
+				},
+				{
+					"name": "keyword.operator.assignment.dlitescript",
+					"match": "="
+				},
+				{
+					"name": "keyword.operator.spread.dlitescript",
+					"match": "\\.\\.\\."
+				}
+			]
 		},
 		"numbers": {
 			"name": "constant.numeric.dlitescript",
@@ -59,13 +85,29 @@
 				},
 				{
 					"name": "constant.other.placeholder.dlitescript",
-					"match": "%[%sg]"
+					"match": "%[%sgvt]"
 				}
 			]
 		},
 		"function-calls": {
 			"name": "entity.name.function.dlitescript",
 			"match": "\\b[a-zA-Z_][a-zA-Z0-9_]*(?=\\s*\\()"
+		},
+		"namespaced-identifiers": {
+			"name": "entity.name.namespace.dlitescript",
+			"match": "\\b[a-zA-Z_][a-zA-Z0-9_]*\\.[a-zA-Z_][a-zA-Z0-9_]*(?=\\s*\\()"
+		},
+		"import-statements": {
+			"patterns": [
+				{
+					"name": "keyword.other.import.dlitescript",
+					"match": "\\bimport\\b"
+				},
+				{
+					"name": "string.quoted.double.import.dlitescript",
+					"match": "import\\s+(\"[^\"]+\")"
+				}
+			]
 		}
 	},
 	"scopeName": "source.dlitescript"
