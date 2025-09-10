@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.3.5
+
+- feat: Add highlighting for arrays
+
 ## 0.3.4
 
 - feat: Add highlighting for function declarations
