@@ -3,6 +3,7 @@
 ## 0.3.5
 
 - feat: Add highlighting for arrays
+- feat: Add highlighting for shorthand assignments
 
 ## 0.3.4
 

@@ -68,7 +68,7 @@
         },
         {
           "name": "keyword.operator.assignment.dlitescript",
-          "match": "="
+          "match": "(\\+\\=|\\-\\=|\\*\\=|\\/\\=|\\%\\=|\\*\\*\\=|=)"
         },
         {
           "name": "keyword.operator.spread.dlitescript",
