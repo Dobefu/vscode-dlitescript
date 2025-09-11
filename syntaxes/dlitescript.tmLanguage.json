@@ -42,11 +42,11 @@
     },
     "types": {
       "name": "support.type.builtin.dlitescript",
-      "match": "\\b(string|number|bool|null)\\b"
+      "match": "\\b(string|number|bool|any|null)\\b"
     },
     "array-types": {
       "name": "support.type.builtin.dlitescript",
-      "match": "\\[\\](string|number|bool)"
+      "match": "\\[\\](string|number|any|bool)"
     },
     "booleans": {
       "name": "constant.language.boolean.dlitescript",

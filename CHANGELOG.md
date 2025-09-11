@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.3.6
+
+- feat: Add highlighting for the `any` keyword
+
 ## 0.3.5
 
 - feat: Add highlighting for arrays
