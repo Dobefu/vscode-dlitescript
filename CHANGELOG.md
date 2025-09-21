@@ -3,6 +3,7 @@
 ## 0.3.6
 
 - feat: Add highlighting for the `any` keyword
+- feat: Add highlighting for the `as` keyword
 
 ## 0.3.5
 

@@ -36,7 +36,7 @@
         },
         {
           "name": "keyword.other.function.dlitescript",
-          "match": "\\b(func|import)\\b"
+          "match": "\\b(func|import|as)\\b"
         }
       ]
     },
@@ -124,6 +124,10 @@
         {
           "name": "string.quoted.double.import.dlitescript",
           "match": "import\\s+(\"[^\"]+\")"
+        },
+        {
+          "name": "keyword.other.import.dlitescript",
+          "match": "\\bas\\b"
         }
       ]
     }
