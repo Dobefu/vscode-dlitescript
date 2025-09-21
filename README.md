@@ -33,7 +33,7 @@ This extension contributes the following settings:
 ```dlitescript
 // Variable declarations
 var name string
-const age number = 25
+var age number = 25
 var message string = "Hello %s!"
 
 // Assignments
