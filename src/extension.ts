@@ -93,12 +93,13 @@ async function startServer(): Promise<LanguageClient | undefined> {
   if (!serverPath || serverPath === "dlitescript") {
     const platform = process.platform;
     const arch = process.arch;
-    const bundledPath = path.join(
-      __dirname,
-      "..",
-      "resources",
-      `dlitescript-${platform}-${arch}`,
-    );
+    let binaryName = `dlitescript-${platform}-${arch}`;
+
+    if (platform.startsWith("win")) {
+      binaryName = `${binaryName}.exe`;
+    }
+
+    const bundledPath = path.join(__dirname, "..", "resources", binaryName);
 
     if (fs.existsSync(bundledPath)) {
       serverPath = bundledPath;

@@ -52,9 +52,9 @@ function main() {
   console.info("Compiling binaries");
 
   for (const [platformKey] of Object.entries(PLATFORMS)) {
-    const [p, a] = platformKey.split("-");
+    const [platform, arch] = platformKey.split("-");
 
-    compileBinary(p, a);
+    compileBinary(platform, arch);
   }
 
   console.info("All binaries have been compiled");
@@ -98,7 +98,12 @@ function compileBinary(platform, arch) {
     fs.mkdirSync(resourcesDir, { recursive: true });
   }
 
-  const outputName = `dlitescript-${platformKey}`;
+  let outputName = `dlitescript-${platformKey}`;
+
+  if (platform.startsWith("win")) {
+    outputName = `dlitescript-${platformKey}.exe`;
+  }
+
   const binaryPath = path.join(resourcesDir, outputName);
 
   try {
