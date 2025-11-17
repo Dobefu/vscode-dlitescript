@@ -4,6 +4,7 @@
 
 - feat: Add highlighting for the `any` keyword
 - feat: Add highlighting for the `as` keyword
+- fix: Add a `.exe` suffix to Windows binaries
 
 ## 0.3.5
 
